@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '../../src'
 import { defineComponent } from 'vue'
+import type { GlobalMountOptions } from '../../src'
 
 describe('global.components', () => {
   it('registers a component to all components', () => {
@@ -10,12 +11,13 @@ describe('global.components', () => {
     const Component = {
       template: '<div><global-component/></div>'
     }
-    const wrapper = mount(Component, {
-      global: {
-        components: {
-          GlobalComponent
-        }
+    const globalOptions: GlobalMountOptions = {
+      components: {
+        GlobalComponent
       }
+    }
+    const wrapper = mount(Component, {
+      global: globalOptions
     })
 
     expect(wrapper.text()).toBe('Global')
